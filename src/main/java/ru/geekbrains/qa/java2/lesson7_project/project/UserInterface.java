@@ -39,7 +39,7 @@ public class UserInterface {
     }
 
     private void checkIsExit(String result) {
-        if (result.toLowerCase().equals("выход") || result.toLowerCase().equals("exit")) {
+        if (result.equalsIgnoreCase("выход") || result.equalsIgnoreCase("exit")) {
             System.out.println("Завершаю работу");
             System.exit(0);
         }
