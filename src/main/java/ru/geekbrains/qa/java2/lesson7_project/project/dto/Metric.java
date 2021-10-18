@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonRootName(value = "Metric")
 public class Metric {
-    private Float value;
+    private Double value;
     private String unit;
     private Integer unitType;
     @JsonGetter("Value")
-    public Float getValue() {
+    public Double getValue() {
         return value;
     }
     @JsonSetter("Value")
-    public void setValue(Float value) {
+    public void setValue(Double value) {
         this.value = value;
     }
     @JsonGetter("Unit")
@@ -36,7 +36,7 @@ public class Metric {
         this.unitType = unitType;
     }
 
-    public Metric(Float value, String unit, Integer unitType) {
+    public Metric(Double value, String unit, Integer unitType) {
         this.value = value;
         this.unit = unit;
         this.unitType = unitType;

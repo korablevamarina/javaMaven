@@ -11,8 +11,11 @@ import org.jetbrains.annotations.NotNull;
 import ru.geekbrains.qa.java2.lesson7_project.project.dto.CityResponse;
 import ru.geekbrains.qa.java2.lesson7_project.project.dto.WeatherResponse;
 import ru.geekbrains.qa.java2.lesson7_project.project.enums.Periods;
+import ru.geekbrains.qa.java2.lesson8.project.entity.WeatherData;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class AccuWeatherProvider implements WeatherProvider {
@@ -27,6 +30,7 @@ public class AccuWeatherProvider implements WeatherProvider {
 
     private final OkHttpClient client = new OkHttpClient();
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final DatabaseRepository repository = new DatabaseRepositorySQLiteImpl();
 
     @Override
     public void getWeather(Periods periods) throws IOException {
@@ -38,9 +42,30 @@ public class AccuWeatherProvider implements WeatherProvider {
             });
             System.out.println(weatherResponseList.get(0).getTemperature().getMetric().getValue());
             System.out.println(weatherResponseList.get(0).getWeatherText());
+            try {
+                repository.saveWeatherData(new WeatherData(
+                        cityResponse.getCityName(),
+                        LocalDateTime.now().toString(),
+                        weatherResponseList.get(0).getWeatherText(),
+                        weatherResponseList.get(0).getTemperature().getMetric().getValue()));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else if (periods.equals(Periods.FIVE_DAYS)) {
             String respStr = requestWeather(cityResponse.getCityKey(), FORECAST_ENDPOINT);
             printNice(respStr, cityResponse.getCityName());
+        }
+    }
+
+    @Override
+    public void getWeatherFromDB() {
+        try {
+            List<WeatherData> data = repository.getAllSavedData();
+            for (WeatherData D : data){
+                System.out.println(D);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

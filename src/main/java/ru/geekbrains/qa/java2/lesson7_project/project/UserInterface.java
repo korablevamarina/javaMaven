@@ -7,6 +7,7 @@ public class UserInterface {
 
     private final Controller controller = new Controller();
 
+
     public void runApplication() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -16,8 +17,9 @@ public class UserInterface {
             setGlobalCity(city);
 
             System.out.println("Введите ответ: 1 - Получить текущую погоду, " +
-                "2 - Получить погоду на следующие 5 дней, " +
-                "выход (exit) - завершить работу");
+                    "2 - Получить погоду на следующие 5 дней, " +
+                    "3 - Загрузить данные из базы, " +
+                    "выход (exit) - завершить работу");
             String result = scanner.nextLine();
 
             checkIsExit(result);

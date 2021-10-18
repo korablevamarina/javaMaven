@@ -8,4 +8,5 @@ public interface WeatherProvider {
 
     void getWeather(Periods periods) throws IOException;
 
+    void getWeatherFromDB();
 }
