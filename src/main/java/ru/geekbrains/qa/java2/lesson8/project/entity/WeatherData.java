@@ -6,6 +6,17 @@ public class WeatherData {
     private String city;
     private String localDate;
     private String text;
+
+    @Override
+    public String toString() {
+        return "WeatherData{" +
+                "city='" + city + '\'' +
+                ", localDate='" + localDate + '\'' +
+                ", text='" + text + '\'' +
+                ", temperature=" + temperature +
+                '}';
+    }
+
     private Double temperature;
 
     public WeatherData() {
