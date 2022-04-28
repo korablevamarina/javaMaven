@@ -1,0 +1,609 @@
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Periods.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Periods.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Periods.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Periods.java	(date 1597341172000)
+@@ -0,0 +1,7 @@
++package ru.geekbrains.qa.java2.lesson7_project.project.enums;
++
++public enum Periods {
++    NOW,
++    FIVE_DAYS,
++    CUSTOM
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Functionality.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Functionality.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Functionality.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/enums/Functionality.java	(date 1597341172000)
+@@ -0,0 +1,6 @@
++package ru.geekbrains.qa.java2.lesson7_project.project.enums;
++
++public enum Functionality {
++    GET_CURRENT_WEATHER,
++    GET_WEATHER_IN_NEXT_5_DAYS
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Person.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Person.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Person.java
+new file mode 100644
+--- /dev/null	(date 1633888380703)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Person.java	(date 1633888380703)
+@@ -0,0 +1,23 @@
++package ru.geekbrains.qa.java2.lesson7_project.entity;
++
++import com.fasterxml.jackson.annotation.JsonCreator;
++import com.fasterxml.jackson.annotation.JsonProperty;
++
++public class Person {
++    private int age;
++    private String name;
++
++    @JsonCreator
++    public Person(@JsonProperty("age") int age, @JsonProperty("firstName") String name) {
++        this.age = age;
++        this.name = name;
++    }
++
++    @Override
++    public String toString() {
++        return "Person{" +
++                "age=" + age +
++                ", name='" + name + '\'' +
++                '}';
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Student.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Student.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Student.java
+new file mode 100644
+--- /dev/null	(date 1633617617000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Student.java	(date 1633617617000)
+@@ -0,0 +1,38 @@
++package ru.geekbrains.qa.java2.lesson7_project.entity;
++
++import com.fasterxml.jackson.annotation.JsonGetter;
++import com.fasterxml.jackson.annotation.JsonSetter;
++
++public class Student {
++    private String name;
++    private double averageMark;
++
++    @JsonGetter("name")
++    public String getStudentName() {
++        return name;
++    }
++
++    @JsonSetter("name")
++    public void setStudentName(String name) {
++        this.name = name;
++    }
++
++    @JsonGetter("averageMark")
++    public double getAvgMark() {
++        return averageMark;
++    }
++
++    @JsonSetter("averageMark")
++    public void setAvgMark(double averageMark) {
++        this.averageMark = averageMark;
++    }
++
++    public Student(String name, double averageMark) {
++        this.name = name;
++        this.averageMark = averageMark;
++    }
++
++    public Student() {
++
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Car.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Car.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Car.java
+new file mode 100644
+--- /dev/null	(date 1633620486000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/entity/Car.java	(date 1633620486000)
+@@ -0,0 +1,53 @@
++package ru.geekbrains.qa.java2.lesson7_project.entity;
++
++import com.fasterxml.jackson.annotation.JsonIgnore;
++import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
++import com.fasterxml.jackson.annotation.JsonRootName;
++
++@JsonIgnoreProperties(ignoreUnknown = true)
++@JsonRootName(value = "car")
++public class Car {
++    private String color;
++
++    private String type;
++
++//    @JsonProperty(value = "model")
++//    private String type;
++
++    @JsonIgnore
++    private boolean isActive;
++
++    public String getColor() {
++        return color;
++    }
++
++    public void setColor(String color) {
++        this.color = color;
++    }
++
++    public String getType() {
++        return type;
++    }
++
++    public void setType(String type) {
++        this.type = type;
++    }
++
++    public Car(String color, String type) {
++        this.color = color;
++        this.type = type;
++    }
++
++    // Показать студентам поведение при десериализации в класс без конструктора по умолчанию
++    public Car() {
++
++    }
++
++    @Override
++    public String toString() {
++        return "Car{" +
++                "color='" + color + '\'' +
++                ", type='" + type + '\'' +
++                '}';
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/Demo1.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/Demo1.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/Demo1.java
+new file mode 100644
+--- /dev/null	(date 1633621951000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/Demo1.java	(date 1633621951000)
+@@ -0,0 +1,83 @@
++package ru.geekbrains.qa.java2.lesson7_project;
++
++import com.fasterxml.jackson.core.JsonProcessingException;
++import com.fasterxml.jackson.core.type.TypeReference;
++import com.fasterxml.jackson.databind.JsonNode;
++import com.fasterxml.jackson.databind.ObjectMapper;
++import com.fasterxml.jackson.databind.SerializationFeature;
++import ru.geekbrains.qa.java2.lesson7_project.entity.Car;
++import ru.geekbrains.qa.java2.lesson7_project.entity.Person;
++import ru.geekbrains.qa.java2.lesson7_project.entity.Student;
++
++import java.io.File;
++import java.io.IOException;
++import java.util.List;
++
++/* Презентация работы с библиотекой Jackson */
++public class Demo1 {
++
++    public static void main(String[] args) throws IOException {
++        ObjectMapper objectMapper = new ObjectMapper();
++        Student student = new Student("Ivan", 4.87);
++        String jsonStudent = objectMapper.writeValueAsString(student);
++        System.out.println(jsonStudent);
++
++    }
++
++    private static void simpleWriteJsonToFile() throws IOException {
++        ObjectMapper objectMapper = new ObjectMapper();
++        Car car = new Car("yellow", "Renault Logan");
++        objectMapper.writeValue(new File("car.json"), car);
++    }
++
++    private static void simpleWriteJsonAsString() throws JsonProcessingException {
++        ObjectMapper objectMapper = new ObjectMapper();
++        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
++        Car car = new Car("yellow", "Renault Logan");
++        System.out.println(objectMapper.writeValueAsString(car));
++    }
++
++    private static void simpleReadJsonFromString() throws JsonProcessingException {
++        String jsonString = "{ \"color\" : \"white\", \"type\" : \"Volga\" }";
++        ObjectMapper objectMapper = new ObjectMapper();
++        Car car = objectMapper.readValue(jsonString, Car.class);
++        System.out.println(car);
++    }
++
++    private static void readObjectWithUnknownProperties() throws com.fasterxml.jackson.core.JsonProcessingException {
++        String jsonString = "{ \"color\" : \"white\", \"type\" : \"Volga\", \"year\" :\"1970\" }";
++        ObjectMapper objectMapper = new ObjectMapper();
++        Car car = objectMapper.readValue(jsonString, Car.class);
++        System.out.println(car);
++    }
++
++    private static void readValuesToList() throws com.fasterxml.jackson.core.JsonProcessingException {
++        String carsList = "[{\"color\":\"red\", \"type\":\"BMW\"}," +
++            " {\"color\":\"black\", \"type\":\"lada priora\"}]";
++        ObjectMapper objectMapper = new ObjectMapper();
++        List<Car> carList = objectMapper.readValue(carsList, new TypeReference<List<Car>>() {});
++        System.out.println(carList);
++    }
++
++    private static void navigatingByJsonAsNodeTree() throws JsonProcessingException {
++        String jsonString = "{\"name\":\"Ivan\", \"education\": " +
++            "{\"school\": \"School #52\", \"university\": " +
++            "{\"degree\": \"master\", \"name\": \"MGU\"}}}";
++
++        //нагляднее в консоль
++        System.out.println(jsonString);
++
++        ObjectMapper objectMapper = new ObjectMapper();
++        JsonNode universityName = objectMapper.readTree(jsonString).at("/education/university/name");
++        System.out.println(universityName.asText());
++    }
++
++    private static void useJsonCreatorAnnotation() throws JsonProcessingException {
++        String jsonPerson = "{ \"age\" : 30, \"firstName\" : \"Vsevolod\" }";
++        ObjectMapper objectMapper = new ObjectMapper();
++        Person p = objectMapper.readValue(jsonPerson, Person.class);
++        System.out.println(p);
++    }
++}
++
++
+Index: lesson7.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lesson7.md b/lesson7.md
+new file mode 100644
+--- /dev/null	(date 1597431037000)
++++ b/lesson7.md	(date 1597431037000)
+@@ -0,0 +1,20 @@
++### Тема: JSON, промежуточный проект
++Соответствие блоков кода участкам презентации
++-----
++Проект представляет собой пародию на MVC, 
++содержащую несколько концепций (корректных и некорректных) 
++которые было бы неплохо показать:
++1) Программирование на уровне интерфейсов
++2) Singleton (потокобезопасность нет смысла объяснять без навыков работы с concurrency)
++3) Использование Enums
++4) Жесткая зависимость классов (опровергнуть в курсе 4, тема inversion of control)
++5) Работа с UI через model layer (опровергнуть на следующем уроке)
++##### 
++
++| Тема презентации | № Demo | 
++| ------------- | ------------- | 
++| Демонстрация Jackson | Demo 1 | 
++| Проект | package: project|
++
++
++
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/AccuWeatherProvider.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/AccuWeatherProvider.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/AccuWeatherProvider.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/AccuWeatherProvider.java	(date 1597341172000)
+@@ -0,0 +1,85 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++import com.fasterxml.jackson.databind.ObjectMapper;
++import okhttp3.HttpUrl;
++import okhttp3.OkHttpClient;
++import okhttp3.Request;
++import okhttp3.Response;
++import ru.geekbrains.qa.java2.lesson7_project.project.enums.Periods;
++
++import java.io.IOException;
++
++public class AccuWeatherProvider implements WeatherProvider {
++
++    private static final String BASE_HOST = "dataservice.accuweather.com";
++    private static final String FORECAST_ENDPOINT = "forecasts";
++    private static final String CURRENT_CONDITIONS_ENDPOINT = "currentconditions";
++    private static final String API_VERSION = "v1";
++    private static final String API_KEY = ApplicationGlobalState.getInstance().getApiKey();
++
++    private final OkHttpClient client = new OkHttpClient();
++    private final ObjectMapper objectMapper = new ObjectMapper();
++
++    @Override
++    public void getWeather(Periods periods) throws IOException {
++        String cityKey = detectCityKey();
++        if (periods.equals(Periods.NOW)) {
++            HttpUrl url = new HttpUrl.Builder()
++                .scheme("http")
++                .host(BASE_HOST)
++                .addPathSegment(CURRENT_CONDITIONS_ENDPOINT)
++                .addPathSegment(API_VERSION)
++                .addPathSegment(cityKey)
++                .addQueryParameter("apikey", API_KEY)
++                .build();
++
++            Request request = new Request.Builder()
++                .addHeader("accept", "application/json")
++                .url(url)
++                .build();
++
++            Response response = client.newCall(request).execute();
++            System.out.println(response.body().string());
++            // TODO: Сделать в рамках д/з вывод более приятным для пользователя.
++            //  Создать класс WeatherResponse, десериализовать ответ сервера в экземпляр класса
++            //  Вывести пользователю только текущую температуру в C и сообщение (weather text)
++        }
++    }
++
++    public String detectCityKey() throws IOException {
++        String selectedCity = ApplicationGlobalState.getInstance().getSelectedCity();
++
++        HttpUrl detectLocationURL = new HttpUrl.Builder()
++            .scheme("http")
++            .host(BASE_HOST)
++            .addPathSegment("locations")
++            .addPathSegment(API_VERSION)
++            .addPathSegment("cities")
++            .addPathSegment("autocomplete")
++            .addQueryParameter("apikey", API_KEY)
++            .addQueryParameter("q", selectedCity)
++            .build();
++
++        Request request = new Request.Builder()
++            .addHeader("accept", "application/json")
++            .url(detectLocationURL)
++            .build();
++
++        Response response = client.newCall(request).execute();
++
++        if (!response.isSuccessful()) {
++            throw new IOException("Невозможно прочесть информацию о городе. " +
++                "Код ответа сервера = " + response.code() + " тело ответа = " + response.body().string());
++        }
++        String jsonResponse = response.body().string();
++        System.out.println("Произвожу поиск города " + selectedCity);
++
++        if (objectMapper.readTree(jsonResponse).size() > 0) {
++            String cityName = objectMapper.readTree(jsonResponse).get(0).at("/LocalizedName").asText();
++            String countryName = objectMapper.readTree(jsonResponse).get(0).at("/Country/LocalizedName").asText();
++            System.out.println("Найден город " + cityName + " в стране " + countryName);
++        } else throw new IOException("Server returns 0 cities");
++
++        return objectMapper.readTree(jsonResponse).get(0).at("/Key").asText();
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/UserInterface.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/UserInterface.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/UserInterface.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/UserInterface.java	(date 1597341172000)
+@@ -0,0 +1,69 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++import java.io.IOException;
++import java.util.Scanner;
++
++public class UserInterface {
++
++    private final Controller controller = new Controller();
++
++    public void runApplication() {
++        Scanner scanner = new Scanner(System.in);
++        while (true) {
++            System.out.println("Введите название города на английском языке");
++            String city = scanner.nextLine();
++
++            setGlobalCity(city);
++
++            System.out.println("Введите ответ: 1 - Получить текущую погоду, " +
++                "2 - Получить погоду на следующие 5 дней, " +
++                "выход (exit) - завершить работу");
++            String result = scanner.nextLine();
++
++            checkIsExit(result);
++
++            try {
++                validateUserInput(result);
++            } catch (IOException e) {
++                e.printStackTrace();
++                continue;
++            }
++
++            try {
++                notifyController(result);
++            } catch (IOException e) {
++                e.printStackTrace();
++            }
++
++        }
++    }
++
++    private void checkIsExit(String result) {
++        if (result.toLowerCase().equals("выход") || result.toLowerCase().equals("exit")) {
++            System.out.println("Завершаю работу");
++            System.exit(0);
++        }
++    }
++
++    private void setGlobalCity(String city) {
++        ApplicationGlobalState.getInstance().setSelectedCity(city);
++    }
++
++
++    private void validateUserInput(String userInput) throws IOException {
++        if (userInput == null || userInput.length() != 1) {
++            throw new IOException("Incorrect user input: expected one digit as answer, but actually get " + userInput);
++        }
++        int answer = 0;
++        try {
++            answer = Integer.parseInt(userInput);
++        } catch (NumberFormatException e) {
++            throw new IOException("Incorrect user input: character is not numeric!");
++        }
++    }
++
++    private void notifyController(String input) throws IOException {
++        controller.onUserInput(input);
++    }
++
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/WeatherProvider.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/WeatherProvider.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/WeatherProvider.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/WeatherProvider.java	(date 1597341172000)
+@@ -0,0 +1,11 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++import ru.geekbrains.qa.java2.lesson7_project.project.enums.Periods;
++
++import java.io.IOException;
++
++public interface WeatherProvider {
++
++    void getWeather(Periods periods) throws IOException;
++
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/Controller.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/Controller.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/Controller.java	(date 1597341172000)
+@@ -0,0 +1,43 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++import ru.geekbrains.qa.java2.lesson7_project.project.enums.Functionality;
++import ru.geekbrains.qa.java2.lesson7_project.project.enums.Periods;
++
++import java.io.IOException;
++import java.util.HashMap;
++import java.util.Map;
++
++public class Controller {
++
++    WeatherProvider weatherProvider = new AccuWeatherProvider();
++    Map<Integer, Functionality> variantResult = new HashMap();
++
++    public Controller() {
++        variantResult.put(1, Functionality.GET_CURRENT_WEATHER);
++        variantResult.put(2, Functionality.GET_WEATHER_IN_NEXT_5_DAYS);
++    }
++
++    public void onUserInput(String input) throws IOException {
++        int command = Integer.parseInt(input);
++        if (!variantResult.containsKey(command)) {
++            throw new IOException("There is no command for command-key " + command);
++        }
++
++        switch (variantResult.get(command)) {
++            case GET_CURRENT_WEATHER:
++                getCurrentWeather();
++                break;
++            case GET_WEATHER_IN_NEXT_5_DAYS:
++                getWeatherIn5Days();
++                break;
++        }
++    }
++
++    public void getCurrentWeather() throws IOException {
++        weatherProvider.getWeather(Periods.NOW);
++    }
++
++    public void getWeatherIn5Days() {
++        throw new RuntimeException("Implement in h/w");
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/MainApp.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/MainApp.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/MainApp.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/MainApp.java	(date 1597341172000)
+@@ -0,0 +1,9 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++public class MainApp {
++
++    public static void main(String[] args) {
++        UserInterface userInterface = new UserInterface();
++        userInterface.runApplication();
++    }
++}
+Index: src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/ApplicationGlobalState.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/ApplicationGlobalState.java b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/ApplicationGlobalState.java
+new file mode 100644
+--- /dev/null	(date 1597341172000)
++++ b/src/main/java/ru/geekbrains/qa/java2/lesson7_project/project/ApplicationGlobalState.java	(date 1597341172000)
+@@ -0,0 +1,32 @@
++package ru.geekbrains.qa.java2.lesson7_project.project;
++
++public final class ApplicationGlobalState {
++
++    private static ApplicationGlobalState INSTANCE;
++    private String selectedCity = null;
++    private final String API_KEY = "0d1tNZJPfzzT3qGokM18FGGxAUpt7hpj";
++
++    private ApplicationGlobalState() {
++    }
++
++    // Непотокобезопасный код для упрощения
++    public static ApplicationGlobalState getInstance() {
++        if(INSTANCE == null) {
++            INSTANCE = new ApplicationGlobalState();
++        }
++
++        return INSTANCE;
++    }
++
++    public String getSelectedCity() {
++        return selectedCity;
++    }
++
++    public void setSelectedCity(String selectedCity) {
++        this.selectedCity = selectedCity;
++    }
++
++    public String getApiKey() {
++        return this.API_KEY;
++    }
++}
